@@ -24,7 +24,13 @@ jobs:
           gradle-version: 8.9
 
       - name: Build debug APK
-        run: gradle assembleDebug --stacktrace
+        run: |
+          echo "=== gradle.properties ==="
+          cat gradle.properties
+          echo "=== app/build.gradle.kts ==="
+          cat app/build.gradle.kts
+          echo "=== building ==="
+          gradle assembleDebug -Pandroid.useFullClasspathForDexingTransform=true
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
